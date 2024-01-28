@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
@@ -14,11 +15,11 @@ class Game
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'games')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Team $team_1 = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Team $team_2 = null;
 
     #[ORM\Column]
@@ -26,6 +27,16 @@ class Game
 
     #[ORM\Column]
     private ?int $team_2_goals = null;
+
+    #[ORM\ManyToOne(inversedBy: 'games')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Tournament $tournament = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $played = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $round = null;
 
     public function getId(): ?int
     {
@@ -76,6 +87,42 @@ class Game
     public function setTeam2Goals(int $team_2_goals): static
     {
         $this->team_2_goals = $team_2_goals;
+
+        return $this;
+    }
+
+    public function getTournament(): ?Tournament
+    {
+        return $this->tournament;
+    }
+
+    public function setTournament(?Tournament $tournament): static
+    {
+        $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    public function getPlayed(): ?\DateTimeInterface
+    {
+        return $this->played;
+    }
+
+    public function setPlayed(?\DateTimeInterface $played): static
+    {
+        $this->played = $played;
+
+        return $this;
+    }
+
+    public function getRound(): ?string
+    {
+        return $this->round;
+    }
+
+    public function setRound(string $round): static
+    {
+        $this->round = $round;
 
         return $this;
     }
