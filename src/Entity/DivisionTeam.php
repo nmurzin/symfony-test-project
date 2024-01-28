@@ -33,4 +33,11 @@ class DivisionTeam
     {
         return $this->team;
     }
+
+    public function addPoints(int $points): static
+    {
+        $this->points = $this->points + $points;
+
+        return $this;
+    }
 }

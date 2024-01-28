@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Division;
+use App\Entity\Game;
 use App\Entity\Tournament;
+use App\Service\Play;
 use App\Service\ScheduleGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,6 +22,19 @@ class GameController extends AbstractController
 
         return $this->json([
             'success' => true
+        ]);
+    }
+
+    #[Route('/play_game/{id}', name: 'play_game', methods: ['POST'])]
+    public function playGame(
+        Game $game,
+        Play $playService
+    ): JsonResponse
+    {
+        $played = $playService->playGame($game);
+
+        return $this->json([
+            'game' => $played
         ]);
     }
 }

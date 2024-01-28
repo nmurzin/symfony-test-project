@@ -15,4 +15,14 @@ class DivisionTeamRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, DivisionTeam::class);
     }
+
+    public function findByTeam($team)
+    {
+        return $this->createQueryBuilder('dt')
+            ->andWhere('dt.team = :team')
+            ->setParameter('team', $team)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
