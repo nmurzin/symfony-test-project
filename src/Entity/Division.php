@@ -22,7 +22,7 @@ class Division
     #[ORM\JoinColumn(nullable: false)]
     private ?Tournament $tournament = null;
 
-    #[ORM\ManyToMany(targetEntity: Team::class)]
+    #[ORM\OneToMany(mappedBy: 'division', targetEntity: DivisionTeam::class)]
     private Collection $teams;
 
     public function __construct()

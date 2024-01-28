@@ -23,10 +23,10 @@ class Game
     private ?Team $team_2 = null;
 
     #[ORM\Column]
-    private ?int $team_1_goals = null;
+    private ?int $team_1_goals = 0;
 
     #[ORM\Column]
-    private ?int $team_2_goals = null;
+    private ?int $team_2_goals = 0;
 
     #[ORM\ManyToOne(inversedBy: 'games')]
     #[ORM\JoinColumn(nullable: false)]
