@@ -60,26 +60,10 @@ class Division
     }
 
     /**
-     * @return Collection<int, Team>
+     * @return Collection<int, DivisionTeam>
      */
     public function getTeams(): Collection
     {
         return $this->teams;
-    }
-
-    public function addTeam(Team $team): static
-    {
-        if (!$this->teams->contains($team)) {
-            $this->teams->add($team);
-        }
-
-        return $this;
-    }
-
-    public function removeTeam(Team $team): static
-    {
-        $this->teams->removeElement($team);
-
-        return $this;
     }
 }

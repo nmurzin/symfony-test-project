@@ -28,4 +28,9 @@ class DivisionTeam
     {
         $this->points = 0;
     }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
 }

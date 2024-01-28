@@ -67,12 +67,12 @@ class Game
         return $this;
     }
 
-    public function getе�team1Goals(): ?int
+    public function getTeam1Goals(): ?int
     {
         return $this->team_1_goals;
     }
 
-    public function setе�team1Goals(int $team_1_goals): static
+    public function setTeam1Goals(int $team_1_goals): static
     {
         $this->team_1_goals = $team_1_goals;
 
