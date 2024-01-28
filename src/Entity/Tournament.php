@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\TeamRepository;
+use App\Repository\TournamentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TeamRepository::class)]
-class Team
+#[ORM\Entity(repositoryClass: TournamentRepository::class)]
+class Tournament
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,12 +18,12 @@ class Team
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'team_1', targetEntity: Game::class)]
-    private Collection $games;
+    #[ORM\OneToMany(mappedBy: 'tournament', targetEntity: Division::class)]
+    private Collection $divisions;
 
     public function __construct()
     {
-        $this->games = new ArrayCollection();
+        $this->divisions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,29 +44,29 @@ class Team
     }
 
     /**
-     * @return Collection<int, Game>
+     * @return Collection<int, Division>
      */
-    public function getGames(): Collection
+    public function getDivisions(): Collection
     {
-        return $this->games;
+        return $this->divisions;
     }
 
-    public function addGame(Game $game): static
+    public function addDivision(Division $division): static
     {
-        if (!$this->games->contains($game)) {
-            $this->games->add($game);
-            $game->setTeam1($this);
+        if (!$this->divisions->contains($division)) {
+            $this->divisions->add($division);
+            $division->setTournament($this);
         }
 
         return $this;
     }
 
-    public function removeGame(Game $game): static
+    public function removeDivision(Division $division): static
     {
-        if ($this->games->removeElement($game)) {
+        if ($this->divisions->removeElement($division)) {
             // set the owning side to null (unless already changed)
-            if ($game->getTeam1() === $this) {
-                $game->setTeam1(null);
+            if ($division->getTournament() === $this) {
+                $division->setTournament(null);
             }
         }
 
