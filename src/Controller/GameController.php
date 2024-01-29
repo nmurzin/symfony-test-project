@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\Tournament;
+use App\Event\GamePlayedEvent;
 use App\Service\Play;
 use App\Service\ScheduleGenerator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class GameController extends AbstractController
 {
@@ -28,13 +31,22 @@ class GameController extends AbstractController
     #[Route('/play_game/{id}', name: 'play_game', methods: ['POST'])]
     public function playGame(
         Game $game,
-        Play $playService
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher
     ): JsonResponse
     {
-        $played = $playService->playGame($game);
+        $team1Goals = rand(0, 10);
+        $team2Goals = rand(0, 10);
+
+        $game->setTeam1Goals($team1Goals);
+        $game->setTeam2Goals($team2Goals);
+        $game->setPlayed(new \DateTime());
+
+        $entityManager->flush();
+        $eventDispatcher->dispatch(new GamePlayedEvent($game));
 
         return $this->json([
-            'game' => $played
+            'game' => $game
         ]);
     }
 }

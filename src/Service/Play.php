@@ -4,9 +4,11 @@ namespace App\Service;
 
 use App\Entity\Division;
 use App\Entity\Game;
+use App\Event\GamePlayedEvent;
 use App\Repository\DivisionTeamRepository;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class Play
 {
@@ -14,24 +16,9 @@ class Play
         private readonly EntityManagerInterface $entityManager,
         private readonly DivisionTeamRepository $divisionTeamRepository,
         private readonly GameRepository         $gameRepository,
+        private readonly EventDispatcherInterface $eventDispatcher,
     )
     {
-    }
-
-    public function playGame(Game $game)
-    {
-        $team1Goals = rand(0, 10);
-        $team2Goals = rand(0, 10);
-
-        $game->setTeam1Goals($team1Goals);
-        $game->setTeam2Goals($team2Goals);
-        $game->setPlayed(new \DateTime());
-
-        $this->proceedPoints($game);
-
-        $this->entityManager->flush();
-
-        return $game;
     }
 
     private function proceedPoints(Game $game):void
