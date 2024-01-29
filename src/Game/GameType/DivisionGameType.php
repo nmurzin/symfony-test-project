@@ -36,6 +36,6 @@ class DivisionGameType implements GameType
     private function updatePlayOffSchedule($game): void
     {
         $divisionStandings = $this->divisionManager->getDivisionPlayOffsQualifiers($game);
-        $this->schedule->updatePlayOffSchedule($divisionStandings, $game->getRound());
+        $this->schedule->updateDivisionPlayOffSchedule($divisionStandings, $game->getRound());
     }
 }

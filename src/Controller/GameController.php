@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\Tournament;
 use App\Event\GamePlayedEvent;
-use App\Service\ScheduleGenerator;
+use App\Game\Schedule;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,10 +17,10 @@ class GameController extends AbstractController
     #[Route('/create_schedule/{id}', name: 'create_schedule', methods: ['POST'])]
     public function createSchedule(
         Tournament $tournament,
-        ScheduleGenerator $scheduleGenerator
+        Schedule $schedule,
     ): JsonResponse
     {
-        $scheduleGenerator->generateSchedule($tournament);
+        $schedule->generate($tournament);
 
         return $this->json([
             'success' => true
