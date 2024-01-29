@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Division;
 use App\Entity\DivisionTeam;
+use App\Entity\Team;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,7 +18,7 @@ class DivisionTeamRepository extends ServiceEntityRepository
         parent::__construct($registry, DivisionTeam::class);
     }
 
-    public function findByTeam($team)
+    public function findByTeam(Team $team)
     {
         return $this->createQueryBuilder('dt')
             ->andWhere('dt.team = :team')
@@ -24,5 +26,23 @@ class DivisionTeamRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    /**
+     * @return DivisionTeam[]
+     */
+    public function getDivisionTopFour(Division $division): array
+    {
+        $t = $this->createQueryBuilder('dt')
+            ->andWhere('dt.division = :division')
+            ->setParameter('division', $division)
+            ->add('orderBy', 'dt.points DESC, dt.team ASC')
+//            ->add('orderBy', 'dt.points DESC')
+            ->setFirstResult( 0 )
+            ->setMaxResults( 4 )
+            ->getQuery();
+        ;
+
+        return $t->getResult();
     }
 }

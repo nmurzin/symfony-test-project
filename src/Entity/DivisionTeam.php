@@ -40,4 +40,9 @@ class DivisionTeam
 
         return $this;
     }
+
+    public function getDivision(): ?Division
+    {
+        return $this->division;
+    }
 }
