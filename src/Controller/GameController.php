@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\Tournament;
 use App\Event\GamePlayedEvent;
-use App\Service\Play;
 use App\Service\ScheduleGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
