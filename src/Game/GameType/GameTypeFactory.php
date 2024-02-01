@@ -4,14 +4,14 @@ namespace App\Game\GameType;
 
 use App\Game\DivisionManager;
 use App\Game\RoundManager;
-use App\Game\Schedule;
+use App\Game\ScheduleService;
 
 class GameTypeFactory
 {
     public function __construct(
         private readonly DivisionManager $divisionManager,
         private readonly RoundManager    $roundManager,
-        private readonly Schedule        $schedule,
+        private readonly ScheduleService $schedule,
     )
     {
     }

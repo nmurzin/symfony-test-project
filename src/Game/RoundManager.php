@@ -30,9 +30,4 @@ class RoundManager
             default => false,
         };
     }
-
-    public function isFirstDivision(string $round): bool
-    {
-        return str_contains($round, self::DIVISION_ROUND_NAME . ' A');
-    }
 }

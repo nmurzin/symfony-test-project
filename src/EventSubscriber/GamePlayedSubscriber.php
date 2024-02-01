@@ -3,7 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Event\GamePlayedEvent;
-use App\Game\Game as GameService;
+use App\Game\GameService as GameService;
 use App\Game\GameType\GameTypeFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

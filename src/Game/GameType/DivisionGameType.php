@@ -4,13 +4,13 @@ namespace App\Game\GameType;
 
 use App\Entity\Game;
 use App\Game\DivisionManager;
-use App\Game\Schedule;
+use App\Game\ScheduleService;
 
 class DivisionGameType implements GameType
 {
     public function __construct(
         private readonly DivisionManager $divisionManager,
-        private readonly Schedule        $schedule,
+        private readonly ScheduleService $schedule,
     )
     {
     }

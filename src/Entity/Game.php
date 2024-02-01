@@ -114,4 +114,11 @@ class Game
 
         return $this;
     }
+
+    public function setTournament(Tournament $tournament): static
+    {
+        $this->tournament = $tournament;
+
+        return $this;
+    }
 }
